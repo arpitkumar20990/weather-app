@@ -21,7 +21,7 @@ const Weather = () => {
                 alert("Please enter the city")
                 return
             }
-            const apiKey = '82fb75ef6ef6749e6f8d829942821d86'
+            const apiKey = import.meta.env.VITE_API_KEY
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
 
             const res = await fetch(url);
@@ -31,7 +31,6 @@ const Weather = () => {
                 return
             }
 
-            console.log(data)
             const detail = {
                 cityName : data.name,
                 tempr : data.main.temp-273.14,
