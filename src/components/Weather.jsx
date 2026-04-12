@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 const Weather = () => {
     const [city, setCity] = useState("");
     const [weather, setWeather] = useState({
-        cityName: "Enter city first !!!",
+        cityName: "Location",
         tempr: 0,
         windSpeed: 0,
         lon:0,
         lat:0,
-        country : "IN"
+        country : ""
         
     })
     
@@ -45,7 +45,7 @@ const Weather = () => {
     }
 
   return (
-    <div className='flex flex-col items-center  sm:w-1/2 sm:h-3/4 h-screen w-full bg-blue-300 sm:rounded-2xl md:p-10 p-5'>
+    <div className='bg-cover bg-[url(https://images.pexels.com/photos/23891814/pexels-photo-23891814.jpeg)] flex flex-col items-center  sm:w-1/2 sm:h-3/4 h-screen w-full bg-blue-300 sm:rounded-2xl md:p-10 p-5'>
         <h1 className='md:text-5xl text-3xl font-bold mb-9'>Weather - App</h1>
         <div className='flex flex-col w-full justify-center self-start text-lg font-semibold items-center gap-4'>
             <input className='md:w-1/2 outline-none bg-blue-100 rounded-2xl text-black placeholder:text-gray-600 p-3' type="text" placeholder='Enter the city' value={city} onChange={addCity} />
