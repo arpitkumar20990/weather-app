@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 
 const Weather = () => {
+    const [bg, setBg] = useState('https://images.pexels.com/photos/23891814/pexels-photo-23891814.jpeg')
+    
+    
     const [city, setCity] = useState("");
     const [weather, setWeather] = useState({
         cityName: "Location",
@@ -8,13 +11,14 @@ const Weather = () => {
         windSpeed: 0,
         lon:0,
         lat:0,
-        country : ""
-        
+        country : "" 
     })
     
     const addCity = (e)=>{
         setCity(e.target.value)
     }
+
+   
 
     const getdata = async ()=>{
             if(!city.trim()){
@@ -30,7 +34,7 @@ const Weather = () => {
                 alert("City not found")
                 return
             }
-
+            console.log(data);
             const detail = {
                 cityName : data.name,
                 tempr : data.main.temp-273.14,
@@ -39,13 +43,23 @@ const Weather = () => {
                 lat : data.coord.lat,
                 country: data.sys.country
             }
+            
+            const currentTime = Math.floor(Date.now() / 1000); // in seconds
+            const isDay = currentTime >= data.sys.sunrise && currentTime < data.sys.sunset;
+
+            console.log(isDay)
+
+
+
 
             setWeather(detail)
             setCity("")
     }
 
   return (
-    <div className='bg-cover bg-[url(https://images.pexels.com/photos/23891814/pexels-photo-23891814.jpeg)] flex flex-col items-center  sm:w-1/2 sm:h-3/4 h-screen w-full bg-blue-300 sm:rounded-2xl md:p-10 p-5'>
+    <div
+    style={{ backgroundImage: `url(${bg})` }}
+     className='bg-cover  flex flex-col items-center  sm:w-1/2 sm:h-3/4 h-screen w-full bg-blue-300 sm:rounded-2xl md:p-10 p-5'>
         <h1 className='md:text-5xl text-3xl font-bold mb-9'>Weather - App</h1>
         <div className='flex flex-col w-full justify-center self-start text-lg font-semibold items-center gap-4'>
             <input className='md:w-1/2 outline-none bg-blue-100 rounded-2xl text-black placeholder:text-gray-600 p-3' type="text" placeholder='Enter the city' value={city} onChange={addCity} />
@@ -54,7 +68,7 @@ const Weather = () => {
         </div>
 
         <div className='flex flex-col w-full justify-center self-start text-xl font-semibold items-center gap-2 mt-5'>
-            <h1 className='md:text-4xl text-2xl font-bold text-emerald-900 mt-3'>{weather.cityName}</h1>
+            <h1 className='md:text-4xl text-3xl font-bold text-emerald-900 mt-3'>{weather.cityName}</h1>
             <p className='text-sm text-gray-700 mb-5'>Country Code : {weather.country}</p>
             <p>Temperature : {weather.tempr?.toFixed(2)}&deg;C </p>
             <p>Wind Speed : {weather.windSpeed} Km/h </p>
